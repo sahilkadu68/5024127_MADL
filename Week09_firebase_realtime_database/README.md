@@ -1,6 +1,6 @@
-# Week09_firebase_realtime_database
+# Week09 - Student Register with Firebase
 
-Aim: Demonstrate firebase realtime database.
+Aim: Write a student name and semester to students/27 and read the saved record from Firebase Realtime Database.
 
 From the repository root: `flutter run -t Week09_firebase_realtime_database/main.dart`
 

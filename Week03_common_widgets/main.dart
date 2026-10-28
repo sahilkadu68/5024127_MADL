@@ -1,30 +1,52 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MaterialApp(home: Demo()));
+void main() => runApp(const MaterialApp(home: StudentCard()));
 
-class Demo extends StatelessWidget {
-  const Demo({super.key});
+class StudentCard extends StatefulWidget {
+  const StudentCard({super.key});
+  @override
+  State<StudentCard> createState() => _StudentCardState();
+}
+
+class _StudentCardState extends State<StudentCard> {
+  String name = 'Student';
+  String enteredName = '';
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Common Widgets')),
-    body: Center(
+    appBar: AppBar(title: const Text('Student ID Card')),
+    body: Padding(
+      padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
-            color: Colors.amber,
-            child: const Text('Container'),
+            padding: const EdgeInsets.all(20),
+            color: Colors.blue.shade100,
+            child: Column(
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.school),
+                    SizedBox(width: 8),
+                    Text('IT Department'),
+                  ],
+                ),
+                Text(name, style: const TextStyle(fontSize: 24)),
+                const Text('BTech IT - Semester V'),
+              ],
+            ),
           ),
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [Icon(Icons.star), Text('Row + Icon')],
+          TextField(
+            decoration: const InputDecoration(labelText: 'Student name'),
+            onChanged: (value) => enteredName = value,
           ),
-          const TextField(decoration: InputDecoration(labelText: 'Type here')),
           ElevatedButton(
-            onPressed: () => ScaffoldMessenger.of(context)
-                .showSnackBar(const SnackBar(content: Text('Button pressed'))),
-            child: const Text('Button'),
+            onPressed: () => setState(() {
+              name = enteredName.trim().isEmpty
+                  ? 'Student'
+                  : enteredName.trim();
+            }),
+            child: const Text('Update card'),
           ),
         ],
       ),

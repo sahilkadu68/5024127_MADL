@@ -1,38 +1,53 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(const MaterialApp(home: First()));
+void main() => runApp(const MaterialApp(home: Courses()));
 
-class First extends StatelessWidget {
-  const First({super.key});
+class Courses extends StatelessWidget {
+  const Courses({super.key});
   @override
-  Widget build(BuildContext c) => Scaffold(
-    appBar: AppBar(title: const Text('Screen One')),
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Student Courses')),
     body: Center(
       child: ElevatedButton(
         onPressed: () => Navigator.push(
-          c,
-          MaterialPageRoute(builder: (_) => const Second()),
+          context,
+          MaterialPageRoute(builder: (_) => const CourseDetails()),
         ),
-        child: const Text('Go to screen two'),
+        child: const Text('View MADL course'),
       ),
     ),
   );
 }
 
-class Second extends StatelessWidget {
-  const Second({super.key});
+class CourseDetails extends StatefulWidget {
+  const CourseDetails({super.key});
   @override
-  Widget build(BuildContext c) => Scaffold(
-    appBar: AppBar(title: const Text('Screen Two')),
+  State<CourseDetails> createState() => _CourseDetailsState();
+}
+
+class _CourseDetailsState extends State<CourseDetails> {
+  bool enrolled = false;
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('MADL Course')),
     body: Center(
-      child: GestureDetector(
-        onTap: () =>
-            ScaffoldMessenger.of(c)
-                .showSnackBar(const SnackBar(content: Text('Tapped!'))),
-        child: const Padding(
-          padding: EdgeInsets.all(30),
-          child: Text('Tap me'),
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Mobile Application Development Lab\nLearn Flutter UI and Dart',
+          ),
+          GestureDetector(
+            onTap: () => setState(() => enrolled = !enrolled),
+            child: Container(
+              padding: const EdgeInsets.all(24),
+              color: Colors.blue.shade100,
+              child: Text(
+                enrolled ? 'Enrolled! Tap to cancel' : 'Tap to enroll',
+              ),
+            ),
+          ),
+        ],
       ),
     ),
   );

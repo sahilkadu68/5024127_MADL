@@ -1,7 +1,7 @@
-# Week10_testing_deployment
+# Week10 - Verify Student Registration
 
-Aim: Demonstrate testing deployment.
+Aim: Verify the existing Week04 registration app. No new application is created.
 
-From the repository root: `flutter run -t Week02_hello_world/main.dart`
+From the repository root: `flutter run -t Week04_form/main.dart`
 
-Check: `flutter analyze` and `flutter test`. Reuses the existing Hello World example. Select a device with `flutter devices`, run it, and verify Hello World appears. APK generation omitted as requested.
+Check: `flutter analyze` and `flutter test`. Manually verify blank fields show errors, valid name/email show a registration confirmation, and invalid email is rejected. APK generation omitted as requested.

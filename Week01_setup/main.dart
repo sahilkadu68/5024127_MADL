@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(
-  const MaterialApp(
-    home: Scaffold(body: Center(child: Text('Flutter setup is ready!'))),
+  MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: const Text('Student Portal')),
+      body: const Center(child: Text('Welcome to the Student Portal')),
+    ),
   ),
 );

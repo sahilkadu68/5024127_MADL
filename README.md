@@ -1,18 +1,20 @@
 # 5024127 MADL
 
-Ten simple weekly Flutter practicals. Run commands from this folder after `flutter pub get`.
+Ten weekly Flutter practicals applied to a simple student campus app topic. Each week is a small, separately runnable example focused on that week's task, using sample data.
 
-| Week | Topic |
-| --- | --- |
-| 01 | Flutter setup and sample app |
-| 02 | Hello World |
-| 03 | Common UI widgets |
-| 04 | Form with validation |
-| 05 | Layout widgets |
-| 06 | Icon, bundled image and bar chart |
-| 07 | Navigation and gestures |
-| 08 | Write and read a text file |
-| 09 | Firebase Realtime Database integration (configuration required) |
-| 10 | Testing and running the existing Hello World app |
+| Week | Application topic | Weekly task |
+| --- | --- | --- |
+| 01 | Student Portal | Flutter setup and welcome screen |
+| 02 | Student Portal welcome | Hello World |
+| 03 | Student ID Card | Common widgets and updating a name |
+| 04 | Student Registration | Form, validation and confirmation |
+| 05 | Student Profile | Layout of student details |
+| 06 | Student Attendance | Icon, image and attendance chart |
+| 07 | Course Enrollment | Two screens, navigation and tap gesture |
+| 08 | Student Notes | Save and load a text file |
+| 09 | Student Register | Write/read a Firebase student record |
+| 10 | Verify Student Registration | Check and run the Week04 app |
 
-Each Week folder has its own code and short run instructions. Example: `flutter run -t Week04_form/main.dart`. Week10 reuses Week02. The folders follow the requested experiment order; the teaching plan's introductory session is not a separate coding experiment. No exam files or mini-projects are included. APK builds are omitted as requested.
+Run `flutter pub get`, then use the command in a week's README, for example `flutter run -t Week04_form/main.dart`. All commands run from this repository root; examples share the Flutter project and dependencies. Week09 needs your own Firebase configuration and database rules; live database access is untested. Week08 requires a native platform such as Android.
+
+Basic checks: `flutter analyze` and `flutter test`. Widget tests cover screen rendering, registration, course enrollment and the Firebase configuration message. Device file storage and live Firebase access have not been verified. No APK builds, exam content or mini-projects are included.

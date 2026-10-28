@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() => runApp(
-  const MaterialApp(
-    home: Scaffold(body: Center(child: Text('Hello World'))),
+  MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(title: const Text('Student Portal')),
+      body: const Center(
+        child: Text(
+          'Hello World\nWelcome, IT students!',
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ),
   ),
 );

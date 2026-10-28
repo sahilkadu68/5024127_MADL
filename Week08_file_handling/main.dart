@@ -3,47 +3,61 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(const MaterialApp(home: FileDemo()));
+void main() => runApp(const MaterialApp(home: StudentNotes()));
 
-class FileDemo extends StatefulWidget {
-  const FileDemo({super.key});
+class StudentNotes extends StatefulWidget {
+  const StudentNotes({super.key});
   @override
-  State<FileDemo> createState() => _FileDemoState();
+  State<StudentNotes> createState() => _StudentNotesState();
 }
 
-class _FileDemoState extends State<FileDemo> {
-  String text = 'Press save, then read';
-  Future<File> get file async =>
-      File('${(await getApplicationDocumentsDirectory()).path}/note.txt');
-  Future<void> save() async {
+class _StudentNotesState extends State<StudentNotes> {
+  final note = TextEditingController(text: 'MADL practical on Monday');
+  String status = 'Write a note and save it';
+  Future<void> work(bool save) async {
     try {
-      await (await file).writeAsString('Hello from a file!');
-      if (mounted) setState(() => text = 'Saved');
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/student_note.txt');
+      if (save) {
+        await file.writeAsString(note.text);
+        if (mounted) setState(() => status = 'Note saved');
+      } else {
+        final text = await file.exists() ? await file.readAsString() : '';
+        if (!mounted) return;
+        note.text = text;
+        setState(() => status = text.isEmpty ? 'No saved note' : 'Note loaded');
+      }
     } catch (e) {
-      if (mounted) setState(() => text = 'Error: $e');
-    }
-  }
-
-  Future<void> read() async {
-    try {
-      final f = await file;
-      final value = await f.exists() ? await f.readAsString() : 'No file yet';
-      if (mounted) setState(() => text = value);
-    } catch (e) {
-      if (mounted) setState(() => text = 'Error: $e');
+      if (mounted) setState(() => status = 'Error: $e');
     }
   }
 
   @override
-  Widget build(BuildContext c) => Scaffold(
-    appBar: AppBar(title: const Text('File Handling')),
-    body: Center(
+  void dispose() {
+    note.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    appBar: AppBar(title: const Text('Student Notes')),
+    body: Padding(
+      padding: const EdgeInsets.all(20),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(text),
-          ElevatedButton(onPressed: save, child: const Text('Write file')),
-          ElevatedButton(onPressed: read, child: const Text('Read file')),
+          TextField(
+            controller: note,
+            decoration: const InputDecoration(labelText: 'Study note'),
+          ),
+          ElevatedButton(
+            onPressed: () => work(true),
+            child: const Text('Save note'),
+          ),
+          ElevatedButton(
+            onPressed: () => work(false),
+            child: const Text('Load note'),
+          ),
+          Text(status),
         ],
       ),
     ),

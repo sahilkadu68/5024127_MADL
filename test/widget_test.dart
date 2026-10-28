@@ -35,31 +35,34 @@ void main() {
   ) async {
     form.main();
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Submit'));
+    await tester.tap(find.text('Register'));
     await tester.pump();
-    expect(find.text('Required'), findsOneWidget);
+    expect(find.text('Name is required'), findsOneWidget);
     expect(find.text('Enter valid email'), findsOneWidget);
     await tester.enterText(find.byType(TextFormField).at(0), 'Student');
     await tester.enterText(
       find.byType(TextFormField).at(1),
       'student@example.com',
     );
-    await tester.tap(find.text('Submit'));
+    await tester.tap(find.text('Register'));
     await tester.pump();
-    expect(find.text('Submitted'), findsOneWidget);
+    expect(
+      find.text('Registered: Student\nstudent@example.com'),
+      findsOneWidget,
+    );
   });
   testWidgets('Navigation opens second screen and handles tap', (tester) async {
     navigation.main();
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Go to screen two'));
+    await tester.tap(find.text('View MADL course'));
     await tester.pumpAndSettle();
-    expect(find.text('Screen Two'), findsOneWidget);
-    await tester.tap(find.text('Tap me'));
+    expect(find.text('MADL Course'), findsOneWidget);
+    await tester.tap(find.text('Tap to enroll'));
     await tester.pump();
-    expect(find.text('Tapped!'), findsOneWidget);
+    expect(find.text('Enrolled! Tap to cancel'), findsOneWidget);
     await tester.pageBack();
     await tester.pumpAndSettle();
-    expect(find.text('Screen One'), findsOneWidget);
+    expect(find.text('Student Courses'), findsOneWidget);
   });
   testWidgets('Firebase clearly reports missing configuration', (tester) async {
     await firebase.main();

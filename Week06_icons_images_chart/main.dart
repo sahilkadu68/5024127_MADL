@@ -3,18 +3,24 @@ import 'package:flutter/material.dart';
 void main() => runApp(
   MaterialApp(
     home: Scaffold(
-      appBar: AppBar(title: Text('Icon, Image, Chart')),
+      appBar: AppBar(title: const Text('Student Attendance')),
       body: Column(
         children: [
-          Icon(Icons.favorite, color: Colors.red, size: 40),
-          Image.asset('assets/flutter.png', height: 100),
-          Text('Sample chart'),
-          SizedBox(
-            height: 120,
+          const Icon(Icons.school, color: Colors.blue, size: 40),
+          Image.asset('assets/flutter.png', height: 80),
+          const Text('Flutter Study Club'),
+          const SizedBox(height: 20),
+          const Text('Attendance by subject (%)'),
+          const SizedBox(
+            height: 150,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [Bar(40), Bar(80), Bar(60)],
+              children: [
+                AttendanceBar('MADL', 90),
+                AttendanceBar('DBMS', 75),
+                AttendanceBar('Networks', 80),
+              ],
             ),
           ),
         ],
@@ -23,10 +29,17 @@ void main() => runApp(
   ),
 );
 
-class Bar extends StatelessWidget {
-  final double h;
-  const Bar(this.h, {super.key});
+class AttendanceBar extends StatelessWidget {
+  final String subject;
+  final double percent;
+  const AttendanceBar(this.subject, this.percent, {super.key});
   @override
-  Widget build(BuildContext c) =>
-      Container(width: 40, height: h, color: Colors.blue);
+  Widget build(BuildContext context) => Column(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: [
+      Text('${percent.toInt()}%'),
+      Container(width: 40, height: percent, color: Colors.blue),
+      Text(subject),
+    ],
+  );
 }

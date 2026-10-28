@@ -43,14 +43,16 @@ class DatabaseDemo extends StatefulWidget {
 }
 
 class _DatabaseDemoState extends State<DatabaseDemo> {
-  final input = TextEditingController(text: 'Hello Firebase');
-  final record = FirebaseDatabase.instance.ref('lab/message');
+  final input = TextEditingController(text: 'Asha Patil');
+  final record = FirebaseDatabase.instance.ref('students/27');
   String result = 'Write a record, then read it';
   Future<void> work(bool write) async {
     try {
-      if (write) await record.set(input.text);
+      if (write) await record.set({'name': input.text, 'semester': 5});
       final value = (await record.get()).value;
-      if (mounted) setState(() => result = '$value');
+      if (mounted) {
+        setState(() => result = value == null ? 'No student found' : '$value');
+      }
     } catch (e) {
       if (mounted) setState(() => result = 'Error: $e');
     }
@@ -64,12 +66,15 @@ class _DatabaseDemoState extends State<DatabaseDemo> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Firebase Realtime Database')),
+    appBar: AppBar(title: const Text('Student Register - Firebase')),
     body: Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          TextField(controller: input),
+          TextField(
+            controller: input,
+            decoration: const InputDecoration(labelText: 'Student name'),
+          ),
           ElevatedButton(
             onPressed: () => work(true),
             child: const Text('Write'),
